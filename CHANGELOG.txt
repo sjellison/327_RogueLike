@@ -1,0 +1,234 @@
+Jan 18: 13:00 - 14:40
+	Started the DungeonGenerator file
+	
+Jan 18: 16:10 - 17:30
+	Created header file and attempted to define blocks.
+
+Jan 20: 13:00 - 14:20
+	Implemented room generation. The dungeon will now create rooms with at least one space between them.
+	Frequency of rooms can be changed with the CHANCEFORROOM variable. This is the chance per cell for
+	the algorithm to attempt to place a room. This needs to be looked at.
+
+Jan 21: 08:30 - 12:00
+	Implemented path generation and the beginning of block properties. Currently properties are hardness,
+	tile shape, and visited (used for path finding).
+	
+Jan 23: 16:00 - 18:00
+	Corrected out of bounds error during room generation.
+	Corrected pathfinding error that would always go to 0,0.
+	Began implementing better pathfinding.
+	
+Jan 24: 12:30 - 13:30
+	Corrected infinite loop bug during path generation.
+	Restructered several definded variable and placed them into the .h file.
+	Got path finding working better. Path finding will now take into account the hardness of cells to find
+	  an easier path. This does not find the quickest path, only the easiest movement from a given cell.
+
+Jan 25: 11:00 - 1:30
+	Implemented console imput for dungeon generation. You can now set room width, room length, and
+	  chance for room variables when running from the console, as well as use a specific seed.
+	Modified the path finding to ignore cells with hardness 0 if the the current cell has hardness 0. This
+	  will make paths leaving a room not always be on a corner. This does however cause parallel paths to
+	  be created adjacent to each other.
+	 
+Jan 30: 12:00 - 13:30
+	Started implementing save and load features.
+	
+Jan 30: 18:00 - 00:00
+	Implemented makeDirectory. If the required directory doesn't exist, it will be created. Save and load
+	mostly implemented. Reading wrong values. Added several functions to the dungeon generator for pulling
+	required information (number of rooms, hardness values, etc). Debugging various segmentation fault
+	errors. Implemented seperate dungeonLoad function to the dungeon generator. Boards generated from
+	loading have different path characters.
+	
+Jan 31: 12:30 - 13:30
+	Various errors tested and corrected.
+	
+Feb 4: 09:00 - 12:00
+	created a main.c that will have the only call to main
+	created ai and player .c and .h file
+	updated makefile, it now should process the different .c and .h seperately only as needed. Added clean
+	to the make.
+	added seperate make commands for windows and unix. default is for unix. use make gamewin for windows.
+
+Feb 5: 18:00 - 19:00
+	Started findpath_ai in ai.c
+
+Feb 6: 13:00 - 14:30
+	copied professor's heap files.
+	attempted to implement dijkstra's algorithm - failed miserably
+
+Feb 6: 16:00 - 19:00
+	implemented more simplified heap file. less efficient, but it's mine and I know how it works.
+	failed at implementing dijkstra's algorithm.
+
+Feb 7: 14:00 - 18:00
+	implemented dijkstra's algorithm. It's not well implemented and slow, but it works. Prints tunneler map
+	and non-tunneler map to the console along with the map. This should be output to a text file for easier
+	reading.
+	
+Feb 9: 12:30 - 16:00
+	attempted to improve speed of the algorith, failed
+	implemented professor's heap and debugged the changes
+	got professor's heap working, run times improved drastically
+	
+Feb 11: 10:00 - 13:25
+	found the non-tunneling path finding to be wrong, attempted to correct it
+	created seperate method's for getting tunneler/non-tunneler pathing
+	fixed several bugs that resulted
+	seperate tunneler and non-tunneler pathing maps are working as intended (so cool!)
+
+Feb 17: 16:30 - 17:00
+	changed DungeonGenerator.c and DungeonGenerator.h to dungeon.c and dungeon.h
+
+Feb 18: 10:00 - 14:00
+	made dm.c and dm.h
+	added monster_t to dm.c
+	attempted to add event queue
+	scrapped dm.c and dm.h, functionality moved to ai.c and ai.h
+	monster_t replaced with creature_t
+	added initialize_player and getPlayer to player.c
+	added monster array to dungeon.c
+	added a "null" monster to fill the array
+	added initializeQ and update to ai.c with new heap
+	added cmp_creature
+
+Feb 19: 19:00 - 19:45
+	attempted player movement
+
+Feb 21: 18:00 - 22:00
+	added creature characteristics
+	implemented various movement functions and function tables
+	added various look functions
+	added nonTunnelerMovement() to ai.c
+	added simplified los check
+
+Feb 22: 08:00 - 11:00
+	updated nonTunnelerMovement(), it now accounts for line of sight and
+	 killing monsters correctly
+	debugged several infinite loops
+
+Feb 22: 17:00 - 20:00
+	added tunneler functionality to the move commands
+	modified look functions to add 1 for cases of tile hardness == 1, to prevent
+	 overlap with the empty space condition
+	added tunnelerMovement(), it accounts for intelligent monsters
+	debugging
+	there is an issue where some tunneling monsters will get stuck in an infinite
+	 loop of back and forth pathing. it seems to be intelligent and telepathic
+	 monsters
+	
+Mar 1: 19:00 - 21:40
+	fixed a bug where monsters that killed another wouldn't properly be displayed
+	 unless they moved
+	fixed that long standing save and load bug. the save and load switches can now
+	 be used at the same time
+	fixed a load bug that didn't always properly load the rooms
+
+Mar 4: 10:00 - 16:30
+	implemented manual player controls
+	implemented new displayDungeon() function in dungeon.c using ncurses
+	screen is now limited to an 80x24 character terminal, but the monsters
+	 and player can move anywhere in the dungeon
+	 currently if the player moves to a tile outside of the current screen,
+	 they appear to have disapeared, but can move back
+
+	there are som significant bugs with the controls, occassionally the player
+	 movement will do, presumably, what that last monster movement was
+	there is an issue with creatures not being where they appear, potential fix
+	 is to call displayDungeon() at the start of the player's move as well as
+	 the end
+	
+Mar 4: 20:00 - 22:45
+	fixed a major player movement bug, turns now properly stop on the player
+	 only during his turn rather than every frame
+	add keys to display the pathing maps, z for tunneler path and x for non-tunneler
+	 path. use shift+z too return to the game
+	added stairs to the dungeon, though it is not yet functional and hasn't been
+	 tested to see if the stairs properly appear in the dungeon
+
+Mar 5: 17:00 - 19:00
+	fixed a bug where monsters were not actually where they appeared to be
+	implemented stairs and generating new dungeons, this is very buggy
+	added look mode, fully functional
+	changed pathing map keys to Z and X from z and x
+
+Mar 7: 18:00 - 22:00
+	debugging stairs and new dungeons
+
+Mar 8: 05:00 - 07:15
+	discovered a bug if two creatures are side by side and one is killed
+	fixed many many bugs with creating new dungeons, downstairs seems to be working
+	 as intended now
+	
+Mar 20: 08:00 - 9:00
+	began converting to c++
+	the make file now has the capability to compile as c++, this will now be the default
+
+Mar 20: 18:00 - 21:00
+	in the process of converting all creatures to c++ objects and related functions/variable
+	 calls
+
+Mar 21: 18:00 - 21:00
+	finished converting all relevent calls from c to the wrapper functions, all
+	 creature/player functions now properly defined in c++ classes and wrapped for c
+	ran into a problem where each file compiles correctly but will not link together
+	 ai.o and dg.o cannot find wrappers defined in player.h
+
+Mar 22: 16:30 - 16:40
+	fixed the error, forgot to have player.cpp include its own .h
+
+Mar 22: 17:00 - 18:15
+	implemented fog of war
+
+Mar 25: 17:00 - 17:30
+	converted all .c files to .cpp, removed the c wrapper functions and made relevant
+	 changes accomodate this
+
+Mar 28: .. - 21:20
+	implemented character parser, text files can now be read to import creature templates
+	time is .. because I had forgotten to update the change log, the date and time is last
+	 known stop time
+	 
+April 1 08:30 - 10:40
+	implemented item parser, monster_desc and item_desc text files can now be read from the
+	 .rlg327 folder, same place a dungeon is saved to
+
+April 4 19:30 - 21:30
+	added items randomly to the dungeon. items only appear in rooms
+	added a way for creatures to store items
+	added colors
+
+April 5 00:30 - 01:15
+	add a way to add items to a creature's inventory, needs debugging
+
+April 5 17:00 - 17:50
+	added ability to pickup items and give a list of held items
+	
+April 9 09:30 - 16:40
+	changed item vector to an array
+	split item array into inv and equip, there are now hard caps on the size of a creature's
+	 inventory
+	added methods to creatue.cpp to add items to inventory, equip, unequip, drop, and destroy
+	 items
+	changed inventory view functionality in player.cpp, now a new screen will be displayed
+	 showing all items the player currently has equipped and is holding
+	 made sever asthetics adjustments to the inventory screen
+	 modified the controls for the inventory screen
+	 
+April 11 09:30 - 10:30
+	updated ai movement in preperation for new combat mechanics
+	item stats now properly affect creature stats
+	added new attack functions to ai.cpp and updated tunneler and nontunneler movement to use them
+	
+April 11 17:00 - 19:40
+	made accuracy and dodge stats applicable, now a max accuracy of 95% and dodge chance of 85%
+	 affect whether a creature is hit or not
+	can now properly pick up, equip, un-equip, and drop items
+	still random segmentation faults, presumably from creature behavior
+	
+April 12 10:00 - 11:41
+	added ghostly movement, some creatures will ignore rocks when trying to move and will not mine
+	 rocks even if they are tunnelers
+	added ability for creatures to pickup and use items, or destroy items they walk over
+	creatures will now drop items they have equipped or in their inventory
